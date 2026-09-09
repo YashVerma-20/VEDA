@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
+import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { inferVehicle, getVehicleHistory, OrchestrationResult, TelemetryRecord, InferenceRunHistory } from '../services/api';
 import DataSourceBadge from '../components/ui/DataSourceBadge';
 import RULCard from '../components/domain/RULCard';
 import AgentPipeline from '../components/domain/AgentPipeline';
 import { LoadingState, ErrorState, UnknownState } from '../components/ui/States';
-import ThemeToggle from '../components/ui/ThemeToggle';
+import Navbar from '../components/ui/Navbar';
 import DatasetUploader from '../components/command-center/DatasetUploader';
 import ProcessingPipeline from '../components/command-center/ProcessingPipeline';
 
@@ -78,26 +78,31 @@ const VehicleDashboard: React.FC = () => {
   const isUnknown = vRes && vRes.prognostics && vRes.prognostics.fusion_rul_hours === null;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', paddingBottom: '4rem' }}>
-      
-      {/* Header */}
-      <header className="glass-panel" style={{ padding: '1.5rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '-2rem -2rem 2rem', borderRadius: 0, borderLeft: 'none', borderRight: 'none', borderTop: 'none' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <h1 className="text-xl font-bold" style={{ margin: 0, textTransform: 'uppercase', letterSpacing: '2px' }}>
-            VEDA COMMAND CENTER <span className="text-secondary" style={{ margin: '0 10px' }}>|</span> {vehicleClass} <span className="text-accent">#{vehicleId}</span>
-          </h1>
-          <DataSourceBadge />
-        </div>
+    <div style={{ paddingBottom: '4rem' }}>
+      <Navbar rightAction={
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <ThemeToggle />
           <button 
             onClick={() => navigate('/vehicles')} 
-            style={{ padding: '8px 16px', background: 'transparent', color: 'var(--text-secondary)', border: '1px solid var(--border)', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+            className="hud-border"
+            style={{ padding: '0.5rem 1.5rem', background: 'transparent', color: 'var(--text-secondary)', fontWeight: 'bold', fontSize: '0.875rem', letterSpacing: '1px' }}
           >
             ← SELECT VEHICLE
           </button>
+          <Link to="/" className="hud-border" style={{ padding: '0.5rem 1.5rem', background: 'transparent', color: 'var(--accent)', fontWeight: 'bold', fontSize: '0.875rem', letterSpacing: '1px', textDecoration: 'none' }}>
+            LOGOUT
+          </Link>
         </div>
-      </header>
+      } />
+      
+      <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <h1 className="text-xl font-bold" style={{ margin: 0, textTransform: 'uppercase', letterSpacing: '2px' }}>
+              VEDA COMMAND CENTER <span className="text-secondary" style={{ margin: '0 10px' }}>|</span> {vehicleClass} <span className="text-accent">#{vehicleId}</span>
+            </h1>
+            <DataSourceBadge />
+          </div>
+        </header>
 
       {/* Main Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '2rem' }}>
@@ -238,6 +243,7 @@ const VehicleDashboard: React.FC = () => {
              ) : <div className="text-secondary" style={{ fontStyle: 'italic' }}>NO DATA AVAILABLE</div>}
           </div>
 
+        </div>
         </div>
       </div>
     </div>

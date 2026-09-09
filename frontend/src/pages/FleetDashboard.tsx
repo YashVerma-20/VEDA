@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import DataSourceBadge from '../components/ui/DataSourceBadge';
 import VehicleCard from '../components/domain/VehicleCard';
+import Navbar from '../components/ui/Navbar';
 
 const FleetDashboard: React.FC = () => {
   
@@ -11,8 +13,15 @@ const FleetDashboard: React.FC = () => {
   ];
 
   return (
-    <div>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
+    <div style={{ paddingBottom: '4rem' }}>
+      <Navbar rightAction={
+        <Link to="/" className="hud-border" style={{ padding: '0.5rem 1.5rem', background: 'transparent', color: 'var(--accent)', fontWeight: 'bold', fontSize: '0.875rem', letterSpacing: '1px', textDecoration: 'none' }}>
+          LOGOUT
+        </Link>
+      } />
+      
+      <div style={{ padding: '2rem' }}>
+        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
         <div>
           <h1 className="text-2xl font-bold" style={{ margin: 0, letterSpacing: '2px' }}>VEDA FLEET COMMAND</h1>
           <div className="text-warning font-bold">DEMO MODE</div>
@@ -63,6 +72,7 @@ const FleetDashboard: React.FC = () => {
             statusSummary={v.counts} 
           />
         ))}
+        </div>
       </div>
     </div>
   );
