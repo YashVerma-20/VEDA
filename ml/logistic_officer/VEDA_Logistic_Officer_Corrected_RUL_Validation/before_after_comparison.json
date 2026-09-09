@@ -1,0 +1,1 @@
+{"old_rul_slope": -0.25, "new_rul_slope": -0.25, "note": "RUL drops by exact time elapsed, but initial RUL is now linked to Health_Index hitting EOL instead of an independent uniform distribution."}

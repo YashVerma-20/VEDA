@@ -1,0 +1,9 @@
+{
+    "model_file": "RF_phase1_model.pkl",
+    "feature_contract": "RF_phase1_feature_columns.json",
+    "label_mapping": "RF_phase1_label_mapping.json",
+    "threshold_file": "RF_phase1_risk_threshold.json",
+    "config_file": "RF_phase1_config.json",
+    "metrics_file": "RF_phase1_metrics.json",
+    "feature_importance": "RF_phase1_feature_importance.csv"
+}

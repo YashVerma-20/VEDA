@@ -1,0 +1,8 @@
+{
+    "type": "deterministic_weighted_fusion",
+    "weights": {
+        "LSTM": 0.3,
+        "XGBoost": 0.7
+    },
+    "trainable": false
+}

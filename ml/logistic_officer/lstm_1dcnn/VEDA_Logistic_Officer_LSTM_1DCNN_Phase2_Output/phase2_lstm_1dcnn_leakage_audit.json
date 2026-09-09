@@ -1,0 +1,10 @@
+{
+    "rul_leakage": false,
+    "target_leakage": false,
+    "temporal_leakage": false,
+    "vehicle_leakage": false,
+    "scaler_fitted_only_on_train": true,
+    "architecture_follows_contract": true,
+    "validation_based_selection": true,
+    "audit_result": "PASS"
+}

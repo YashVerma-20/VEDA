@@ -1,0 +1,12 @@
+{
+    "pearson_correlation": 0.7785463859101425,
+    "spearman_correlation": 0.6129888346860893,
+    "LSTM_error_MAE": 37.37057658021749,
+    "XGB_error_MAE": 61.76419465266333,
+    "LSTM_error_RMSE": 54.67099205375354,
+    "XGB_error_RMSE": 135.76466190319883,
+    "LSTM_lower_error_pct": 0.5140319258496395,
+    "XGB_lower_error_pct": 0.4859680741503605,
+    "opposite_sign_pct": 0.30329557157569514,
+    "complementarity": "MODERATE"
+}

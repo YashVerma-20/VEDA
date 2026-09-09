@@ -1,0 +1,33 @@
+{
+  "name": "veda-frontend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "VEDA Frontend and Landing Page",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "framer-motion": "^13.2.0",
+    "gsap": "^3.12.2",
+    "jimp": "^1.6.1",
+    "playwright": "^1.63.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.18.3",
+    "sharp": "^0.35.4"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "jsdom": "^29.1.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.2.2",
+    "vitest": "^5.0.0"
+  }
+}

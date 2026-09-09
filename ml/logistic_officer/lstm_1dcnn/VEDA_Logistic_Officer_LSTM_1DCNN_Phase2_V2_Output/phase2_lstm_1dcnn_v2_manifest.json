@@ -1,0 +1,15 @@
+{
+    "canonical_model": "VEDA_Logistic_Officer_LSTM_1DCNN_V2_final.keras",
+    "scaler_artifact": "feature_scaler_train_only.pkl",
+    "feature_contract_json": "LSTM_1DCNN_phase2_v2_feature_columns.json",
+    "config": "phase2_lstm_1dcnn_v2_config.json",
+    "splits": "LSTM_1DCNN_phase2_v2_vehicle_splits.json",
+    "metrics_json": "phase2_lstm_1dcnn_v2_metrics.json",
+    "per_vehicle_metrics": "phase2_lstm_1dcnn_v2_per_vehicle_test_metrics.csv",
+    "validation_predictions": "phase2_lstm_1dcnn_v2_validation_predictions.csv",
+    "test_predictions": "phase2_lstm_1dcnn_v2_test_predictions.csv",
+    "training_history": "phase2_lstm_1dcnn_v2_training_history.csv",
+    "model_summary": "phase2_lstm_1dcnn_v2_model_summary.txt",
+    "leakage_audit": "phase2_lstm_1dcnn_v2_leakage_audit.json",
+    "reload_consistency": "phase2_lstm_1dcnn_v2_reload_consistency.json"
+}

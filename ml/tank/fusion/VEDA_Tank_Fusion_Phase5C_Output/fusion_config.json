@@ -1,0 +1,12 @@
+{
+    "vehicle_class": "TANK",
+    "fusion_version": "tank_fusion_phase5c",
+    "method": "weighted_average",
+    "lstm_weight": 0.0,
+    "xgb_weight": 1.0,
+    "selection_metric": "validation_MAE",
+    "selection_dataset": "validation",
+    "formula": "Fusion_RUL = 0.00 * LSTM_RUL + 1.00 * XGB_RUL",
+    "upstream_lstm_artifact": "ml/tank/lstm_1dcnn/Model 2 Current Best/VEDA_Phase5B_LSTM_1DCNN_final.keras",
+    "upstream_xgboost_artifact": "ml/tank/xgboost/VEDA_Tank_XGB_Phase3_Output/veda_tank_xgboost_model.json"
+}

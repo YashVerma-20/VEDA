@@ -1,0 +1,75 @@
+{
+    "train_metrics": {
+        "accuracy": 0.9990416666666667,
+        "precision": 0.999854418401514,
+        "abnormal_recall": 0.9984735043977612,
+        "f1": 0.9991634842698672,
+        "balanced_accuracy": 0.9991391245507306,
+        "roc_auc": 0.9999923144040891,
+        "specificity": 0.9998047447037001,
+        "abnormal_fnr": 0.0015264956022388602,
+        "confusion_matrix": [
+            [
+                10241,
+                2
+            ],
+            [
+                21,
+                13736
+            ]
+        ],
+        "abnormal_tp": 13736,
+        "abnormal_fn": 21,
+        "abnormal_fp": 2,
+        "abnormal_tn": 10241
+    },
+    "validation_metrics": {
+        "accuracy": 0.989875,
+        "precision": 0.9944320712694877,
+        "abnormal_recall": 0.9905712701053799,
+        "f1": 0.9924979160878021,
+        "balanced_accuracy": 0.9894963645007795,
+        "roc_auc": 0.999443941758661,
+        "specificity": 0.988421458896179,
+        "abnormal_fnr": 0.009428729894620078,
+        "confusion_matrix": [
+            [
+                2561,
+                30
+            ],
+            [
+                51,
+                5358
+            ]
+        ],
+        "abnormal_tp": 5358,
+        "abnormal_fn": 51,
+        "abnormal_fp": 30,
+        "abnormal_tn": 2561
+    },
+    "test_metrics": {
+        "accuracy": 0.985375,
+        "precision": 0.9894168914712596,
+        "abnormal_recall": 0.9863467107985106,
+        "f1": 0.9878794157256812,
+        "balanced_accuracy": 0.9851190281724707,
+        "roc_auc": 0.9993098736549985,
+        "specificity": 0.9838913455464309,
+        "abnormal_fnr": 0.01365328920148945,
+        "confusion_matrix": [
+            [
+                3115,
+                51
+            ],
+            [
+                66,
+                4768
+            ]
+        ],
+        "abnormal_tp": 4768,
+        "abnormal_fn": 66,
+        "abnormal_fp": 51,
+        "abnormal_tn": 3115
+    },
+    "threshold_information": 0.45000000000000007
+}

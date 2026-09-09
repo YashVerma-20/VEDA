@@ -1,0 +1,11 @@
+{
+    "model_file": "RF_phase1_v2_model.pkl",
+    "feature_contract": "RF_phase1_v2_feature_columns.json",
+    "label_mapping": "RF_phase1_v2_label_mapping.json",
+    "threshold_file": "RF_phase1_v2_risk_threshold.json",
+    "config_file": "RF_phase1_v2_config.json",
+    "metrics_file": "RF_phase1_v2_metrics.json",
+    "feature_importance": "RF_phase1_v2_feature_importance.csv",
+    "leakage_audit": "RF_phase1_v2_leakage_audit.json",
+    "reload_consistency": "RF_phase1_v2_reload_consistency.json"
+}

@@ -1,0 +1,12 @@
+{
+    "Validation_MeanBaseline": {
+        "MAE": 62.5,
+        "RMSE": 72.16874756430238,
+        "R2": 0.0
+    },
+    "Test_MeanBaseline": {
+        "MAE": 62.5,
+        "RMSE": 72.16874756430238,
+        "R2": 0.0
+    }
+}

@@ -1,0 +1,26 @@
+{
+  "phase": "5B",
+  "architecture_changed": false,
+  "input_shape": [
+    30,
+    45
+  ],
+  "cnn_filters": [
+    64,
+    64
+  ],
+  "lstm_units": [
+    64,
+    32
+  ],
+  "dense_units": [
+    64,
+    32
+  ],
+  "output_units": 1,
+  "best_candidate": "B1",
+  "validated_improvement": false,
+  "RUL_scale_hours": 2350.08203125,
+  "embedding_dim": 32,
+  "test_used_for_selection": false
+}

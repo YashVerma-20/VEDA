@@ -1,0 +1,42 @@
+[
+    {
+        "Index": 1405,
+        "Vehicle": "LOV_004",
+        "End_Timestamp": "2025-05-01 19:45:00",
+        "Target_RUL_in_NPZ": 532.8365007548014,
+        "Actual_RUL_in_Raw": 532.8365007548014,
+        "Match": true
+    },
+    {
+        "Index": 7631,
+        "Vehicle": "LOV_031",
+        "End_Timestamp": "2025-11-14 23:45:00",
+        "Target_RUL_in_NPZ": 768.409290389837,
+        "Actual_RUL_in_Raw": 768.409290389837,
+        "Match": true
+    },
+    {
+        "Index": 7175,
+        "Vehicle": "LOV_031",
+        "End_Timestamp": "2025-11-10 05:45:00",
+        "Target_RUL_in_NPZ": 882.409290389837,
+        "Actual_RUL_in_Raw": 882.409290389837,
+        "Match": true
+    },
+    {
+        "Index": 1353,
+        "Vehicle": "LOV_004",
+        "End_Timestamp": "2025-05-01 06:45:00",
+        "Target_RUL_in_NPZ": 545.8365007548014,
+        "Actual_RUL_in_Raw": 545.8365007548014,
+        "Match": true
+    },
+    {
+        "Index": 6079,
+        "Vehicle": "LOV_029",
+        "End_Timestamp": "2025-09-24 22:30:00",
+        "Target_RUL_in_NPZ": 882.8473565385522,
+        "Actual_RUL_in_Raw": 882.8473565385522,
+        "Match": true
+    }
+]

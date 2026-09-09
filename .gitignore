@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+build/
+
+# ML Artifacts (Local runs)
+*.pkl
+*.keras
+*.h5
+*.model
+*.joblib
+
+# Datasets (Do not commit datasets)
+datasets/**/*.csv
+datasets/**/*.json
+datasets/**/*.parquet
+datasets/**/*.npy
+*.npz
+
+# Env
+.env
+.venv
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Databases
+*.db

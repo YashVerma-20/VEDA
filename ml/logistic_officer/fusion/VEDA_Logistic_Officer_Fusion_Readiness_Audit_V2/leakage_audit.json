@@ -1,0 +1,9 @@
+{
+    "used_health_index": false,
+    "used_degradation_index": false,
+    "used_rf_target": false,
+    "used_future_values": false,
+    "test_set_tuning": false,
+    "vehicle_metadata_used_as_feature": false,
+    "status": "PASS"
+}

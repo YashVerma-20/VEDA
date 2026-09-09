@@ -1,0 +1,14 @@
+{
+    "sequence_length": 30,
+    "feature_count": 28,
+    "architecture": "Conv1D(64)->Conv1D(64)->LSTM(64)->LSTM(32)->Dense(64)->Dense(32)->Dense(1)",
+    "optimizer": "adam",
+    "loss": "mse",
+    "batch_size": 64,
+    "epochs": 50,
+    "random_seed": 42,
+    "split_strategy": "vehicle_level",
+    "training_sequence_count": 23304,
+    "validation_sequence_count": 7768,
+    "test_sequence_count": 7768
+}

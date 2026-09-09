@@ -1,0 +1,13 @@
+{
+    "rul_leakage": false,
+    "target_leakage": false,
+    "health_index_leakage": false,
+    "degradation_leakage": false,
+    "rf_target_leakage": false,
+    "abnormal_metadata_leakage": false,
+    "temporal_leakage": false,
+    "vehicle_leakage": false,
+    "scaler_fitted_only_on_train": true,
+    "architecture_follows_contract": true,
+    "audit_result": "PASS"
+}

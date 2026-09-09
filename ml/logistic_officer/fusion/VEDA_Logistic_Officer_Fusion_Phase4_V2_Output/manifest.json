@@ -1,0 +1,12 @@
+{
+    "config": "fusion_config.json",
+    "validation_predictions": "phase4_fusion_v2_validation_predictions.csv",
+    "test_predictions": "phase4_fusion_v2_test_predictions.csv",
+    "validation_metrics": "validation_metrics.json",
+    "test_metrics": "test_metrics.json",
+    "model_comparison": "model_comparison.json",
+    "per_vehicle_comparison": "per_vehicle_comparison.csv",
+    "error_analysis": "error_analysis.json",
+    "alignment_verification": "alignment_verification.json",
+    "leakage_audit": "leakage_audit.json"
+}

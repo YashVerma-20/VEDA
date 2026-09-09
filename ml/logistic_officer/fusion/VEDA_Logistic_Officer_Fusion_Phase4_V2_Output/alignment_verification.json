@@ -1,0 +1,8 @@
+{
+    "test_samples_identical": true,
+    "validation_samples_identical": true,
+    "target_endpoint_identical": true,
+    "vehicle_id_coverage_identical": true,
+    "no_duplicate_rows": true,
+    "status": "PASS"
+}

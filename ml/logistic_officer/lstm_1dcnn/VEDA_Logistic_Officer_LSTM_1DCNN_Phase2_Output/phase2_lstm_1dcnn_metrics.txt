@@ -1,0 +1,16 @@
+=== PHASE L/O-2 LSTM + 1D-CNN METRICS ===
+
+train_metrics:
+  MAE: 41.3994
+  RMSE: 58.1408
+  R2: 0.8721
+
+validation_metrics:
+  MAE: 126.3166
+  RMSE: 160.3706
+  R2: 0.0689
+
+test_metrics:
+  MAE: 126.7843
+  RMSE: 161.7262
+  R2: -0.5316

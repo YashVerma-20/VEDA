@@ -1,0 +1,37 @@
+{
+    "random_seed": 42,
+    "model_parameters": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "class_weight": "balanced",
+        "criterion": "gini",
+        "max_depth": 10,
+        "max_features": "sqrt",
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 1,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 100,
+        "n_jobs": -1,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+    },
+    "feature_count": 22,
+    "feature_ordering_reference": "RF_phase1_feature_columns.json",
+    "target_column": "RF_Abnormal_Label",
+    "threshold": 0.45000000000000007,
+    "split_strategy": "vehicle_level",
+    "training_vehicle_count": 24,
+    "validation_vehicle_count": 8,
+    "test_vehicle_count": 8,
+    "class_distribution": {
+        "1": 13757,
+        "0": 10243
+    },
+    "preprocessing_details": "StandardScaler for num, OneHotEncoder for cat"
+}

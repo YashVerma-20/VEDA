@@ -1,0 +1,11 @@
+{
+    "rul_leakage": false,
+    "target_leakage": false,
+    "health_index_leakage": false,
+    "degradation_leakage": false,
+    "rf_target_leakage": false,
+    "vehicle_leakage": false,
+    "test_used_for_selection": false,
+    "candidates_evaluated_on_validation": true,
+    "audit_result": "PASS"
+}

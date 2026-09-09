@@ -1,0 +1,13 @@
+{
+    "canonical_model": "VEDA_Logistic_Officer_XGB_Phase3_model.json",
+    "config": "xgb_config.json",
+    "feature_ordering": "feature_ordering.json",
+    "splits": "phase3_xgb_vehicle_splits.json",
+    "metrics_json": "phase3_xgb_metrics.json",
+    "metrics_txt": "phase3_xgb_metrics.txt",
+    "per_vehicle_metrics": "phase3_xgb_per_vehicle_test_metrics.csv",
+    "validation_predictions": "phase3_xgb_validation_predictions.csv",
+    "test_predictions": "phase3_xgb_test_predictions.csv",
+    "feature_importance": "phase3_xgb_feature_importance.csv",
+    "leakage_audit": "phase3_xgb_leakage_audit.json"
+}

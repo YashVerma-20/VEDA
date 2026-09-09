@@ -1,0 +1,28 @@
+{
+    "test": {
+        "lstm_sample_count": 7768,
+        "xgb_sample_count": 7768,
+        "intersection_count": 7768,
+        "lstm_only_samples": 0,
+        "xgb_only_samples": 0,
+        "lstm_duplicates": 0,
+        "xgb_duplicates": 0,
+        "target_max_diff": 0.0,
+        "target_mean_diff": 0.0,
+        "target_mismatches": 0,
+        "alignment_passed": true
+    },
+    "validation": {
+        "lstm_sample_count": 7768,
+        "xgb_sample_count": 7768,
+        "intersection_count": 7768,
+        "lstm_only_samples": 0,
+        "xgb_only_samples": 0,
+        "lstm_duplicates": 0,
+        "xgb_duplicates": 0,
+        "target_max_diff": 0.0,
+        "target_mean_diff": 0.0,
+        "target_mismatches": 0,
+        "alignment_passed": true
+    }
+}

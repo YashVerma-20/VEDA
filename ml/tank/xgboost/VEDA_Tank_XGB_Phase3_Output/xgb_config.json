@@ -1,0 +1,12 @@
+{
+    "model_type": "XGBRegressor",
+    "input_shape": [
+        1350
+    ],
+    "best_params": {
+        "max_depth": 6,
+        "learning_rate": 0.1,
+        "n_estimators": 100
+    },
+    "feature_count": 1350
+}

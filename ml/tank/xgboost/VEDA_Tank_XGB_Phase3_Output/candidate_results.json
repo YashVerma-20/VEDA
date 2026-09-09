@@ -1,0 +1,32 @@
+[
+    {
+        "candidate_id": 1,
+        "params": {
+            "max_depth": 4,
+            "learning_rate": 0.1,
+            "n_estimators": 100
+        },
+        "val_mae": 228.25537109375,
+        "val_rmse": 322.92857908135045
+    },
+    {
+        "candidate_id": 2,
+        "params": {
+            "max_depth": 6,
+            "learning_rate": 0.1,
+            "n_estimators": 100
+        },
+        "val_mae": 226.02781677246094,
+        "val_rmse": 327.3142841750112
+    },
+    {
+        "candidate_id": 3,
+        "params": {
+            "max_depth": 4,
+            "learning_rate": 0.05,
+            "n_estimators": 150
+        },
+        "val_mae": 227.3780517578125,
+        "val_rmse": 325.5400321005083
+    }
+]

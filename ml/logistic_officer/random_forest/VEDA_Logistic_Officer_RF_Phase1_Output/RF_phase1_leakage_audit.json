@@ -1,0 +1,11 @@
+{
+    "rul_leakage": false,
+    "target_leakage": false,
+    "test_leakage": false,
+    "vehicle_leakage": false,
+    "post_inference_rf_output_used": false,
+    "abnormal_metadata_leakage": false,
+    "scaler_fitted_on_validation_test": false,
+    "threshold_selected_using_test_data": false,
+    "audit_result": "PASS"
+}

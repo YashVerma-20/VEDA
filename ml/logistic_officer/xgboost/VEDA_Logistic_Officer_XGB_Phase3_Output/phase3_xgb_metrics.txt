@@ -1,0 +1,55 @@
+=== PHASE L/O-3 XGBoost METRICS ===
+{
+  "train_metrics": {
+    "MAE": 51.510280543891604,
+    "RMSE": 65.8336042053046,
+    "R2": 0.835995897311075
+  },
+  "validation_metrics": {
+    "MAE": 147.36821786174477,
+    "RMSE": 179.2773184876604,
+    "R2": -0.16362171225875
+  },
+  "test_metrics": {
+    "MAE": 105.47950964740107,
+    "RMSE": 131.56584390773637,
+    "R2": -0.013602599443680141
+  }
+}
+
+=== CANDIDATES EVALUATED ===
+[
+  {
+    "candidate": 1,
+    "params": {
+      "max_depth": 4,
+      "learning_rate": 0.05,
+      "n_estimators": 100
+    },
+    "val_mae": 147.36821786174477,
+    "val_rmse": 179.2773184876604,
+    "val_r2": -0.16362171225875
+  },
+  {
+    "candidate": 2,
+    "params": {
+      "max_depth": 6,
+      "learning_rate": 0.1,
+      "n_estimators": 100
+    },
+    "val_mae": 163.7375357098283,
+    "val_rmse": 198.34653482071153,
+    "val_r2": -0.4243291288080795
+  },
+  {
+    "candidate": 3,
+    "params": {
+      "max_depth": 6,
+      "learning_rate": 0.05,
+      "n_estimators": 100
+    },
+    "val_mae": 155.3631836490803,
+    "val_rmse": 189.47132292882418,
+    "val_r2": -0.2997148941947756
+  }
+]
