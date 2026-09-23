@@ -1,8 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import DataSourceBadge from '../components/ui/DataSourceBadge';
 import VehicleCard from '../components/domain/VehicleCard';
-import Navbar from '../components/ui/Navbar';
 
 const FleetDashboard: React.FC = () => {
   
@@ -13,26 +10,13 @@ const FleetDashboard: React.FC = () => {
   ];
 
   return (
-    <div style={{ paddingBottom: '4rem' }}>
-      <Navbar rightAction={
-        <Link to="/" className="hud-border" style={{ padding: '0.5rem 1.5rem', background: 'transparent', color: 'var(--accent)', fontWeight: 'bold', fontSize: '0.875rem', letterSpacing: '1px', textDecoration: 'none' }}>
-          LOGOUT
-        </Link>
-      } />
-      
-      <div style={{ padding: '2rem' }}>
+    <div>
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
         <div>
           <h1 className="text-2xl font-bold" style={{ margin: 0, letterSpacing: '2px' }}>VEDA FLEET COMMAND</h1>
-          <div className="text-warning font-bold">DEMO MODE</div>
           <p className="text-secondary" style={{ marginTop: '0.5rem' }}>Overview of active fleet diagnostic monitoring systems.</p>
         </div>
-        <div style={{ textAlign: 'right' }}>
-           <DataSourceBadge />
-           <div className="text-xs text-secondary" style={{ marginTop: '8px', maxWidth: '400px' }}>
-             * Current telemetry is derived from the project's canonical datasets for demonstration. Real-time vehicle sensor ingestion is not connected.
-           </div>
-        </div>
+
       </header>
 
       {/* KPI Cards */}
@@ -72,7 +56,6 @@ const FleetDashboard: React.FC = () => {
             statusSummary={v.counts} 
           />
         ))}
-        </div>
       </div>
     </div>
   );

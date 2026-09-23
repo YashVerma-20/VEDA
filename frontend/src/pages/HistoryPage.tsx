@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { getVehicleHistory, InferenceRunHistory } from '../services/api';
-import DataSourceBadge from '../components/ui/DataSourceBadge';
 import { LoadingState } from '../components/ui/States';
 
 const demoVehicles = [
@@ -41,7 +40,6 @@ const HistoryPage: React.FC = () => {
           <h1 className="text-2xl font-bold" style={{ margin: 0, letterSpacing: '2px' }}>INFERENCE HISTORY</h1>
           <p className="text-secondary" style={{ marginTop: '0.5rem' }}>Global persistent log of all evaluation and diagnostic runs.</p>
         </div>
-        <DataSourceBadge />
       </header>
 
       <div className="glass-panel" style={{ padding: '1.5rem' }}>

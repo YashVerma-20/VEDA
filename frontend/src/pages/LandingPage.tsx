@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import VedaLogo from '../components/ui/VedaLogo';
-import Navbar from '../components/ui/Navbar';
 
 const items = [
   { id: 1, color: "var(--accent)", label: "Tank", image: "/assets/vehicles/tank/normal.png" },
@@ -26,9 +25,6 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="tech-grid-bg" style={{ background: 'var(--background)' }}>
-      {/* Persistent Header */}
-      <Navbar position="fixed" />
-
       {/* EXACT MOTION.DEV DOM STRUCTURE */}
       <div id="example">
 

@@ -10,7 +10,7 @@ class MonitoringAgent:
     Does NOT calculate RUL or plan maintenance.
     """
     
-    SUPPORTED_CLASSES = ["TANK", "LOGISTIC", "OFFICER"]
+    SUPPORTED_CLASSES = ["TANK", "LOGISTIC", "OFFICER", "LOGISTIC TRUCK", "OFFICER VEHICLE"]
     
     def __init__(self):
         self.agent_name = "MonitoringAgent_v1"
@@ -74,6 +74,7 @@ class MonitoringAgent:
             timestamp=input_data.timestamp,
             abnormal_detected=abnormal,
             severity=severity,
+            severity_score=input_data.rf_abnormal_probability,
             observed_findings=findings,
             source_model_info=source_info,
             status=status,

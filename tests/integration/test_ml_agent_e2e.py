@@ -70,7 +70,7 @@ def validate_end_to_end(ml_service, orchestrator, vehicle_id, vehicle_class, df)
     # Validate mathematical fusion
     if vehicle_class.upper() == "TANK":
         if ml_req.fusion_rul_hours is not None:
-            expected_fusion = 0.00 * ml_req.lstm_rul_hours + 1.00 * ml_req.xgb_rul_hours
+            expected_fusion = 0.30 * ml_req.lstm_rul_hours + 0.70 * ml_req.xgb_rul_hours
             assert np.isclose(ml_req.fusion_rul_hours, expected_fusion), f"Fusion math failed for {vehicle_class}"
     else:
         if ml_req.fusion_rul_hours is not None:

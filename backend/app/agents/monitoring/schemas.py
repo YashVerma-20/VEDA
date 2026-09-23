@@ -22,5 +22,6 @@ class MonitoringResult(BaseModel):
     severity: str
     observed_findings: list[str] = Field(default_factory=list)
     source_model_info: Optional[Dict[str, Any]] = None
+    severity_score: Optional[float] = None
     status: str
     execution_metadata: Dict[str, Any] = Field(default_factory=dict)

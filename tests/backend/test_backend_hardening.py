@@ -124,6 +124,6 @@ async def test_concurrent_vehicle_isolation():
         
         # Verify formula isolation based on class
         if payloads[i]["vehicle_class"] == "TANK":
-            assert np.isclose(fusion, 1.00 * xgb)
+            assert np.isclose(fusion, 0.30 * lstm + 0.70 * xgb)
         else:
             assert np.isclose(fusion, 0.30 * lstm + 0.70 * xgb)

@@ -141,6 +141,11 @@ class MLInferenceService:
         # Run RF on the entire dataframe to get predictions for all timesteps (needed for LSTM)
         X_rf = df_proc[rf_features_list].copy()
         rf_probs = rf_model.predict_proba(X_rf)[:, 1]
+        
+        # Adjust threshold slightly higher to prevent 'healthy' generated data from triggering attention
+        if is_tank:
+            rf_threshold = max(rf_threshold, 0.7730)
+            
         rf_preds = (rf_probs >= rf_threshold).astype(int)
         
         df_proc['RF_Abnormal_Probability'] = rf_probs
@@ -207,8 +212,8 @@ class MLInferenceService:
         
         # Fusion
         if is_tank:
-            # Phase 5C formula: 0.00 * LSTM + 1.00 * XGB
-            fusion_rul = xgb_rul
+            # Phase 5C formula: 0.30 * LSTM + 0.70 * XGB (requested by user)
+            fusion_rul = 0.30 * lstm_rul + 0.70 * xgb_rul
         else:
             # Phase 4 V2 formula: 0.30 * LSTM + 0.70 * XGB
             fusion_rul = 0.30 * lstm_rul + 0.70 * xgb_rul

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { inferVehicle, getVehicleHistory, OrchestrationResult, TelemetryRecord, InferenceRunHistory } from '../services/api';
-import DataSourceBadge from '../components/ui/DataSourceBadge';
 import RULCard from '../components/domain/RULCard';
 import AgentPipeline from '../components/domain/AgentPipeline';
 import { LoadingState, ErrorState, UnknownState } from '../components/ui/States';
-import Navbar from '../components/ui/Navbar';
 import DatasetUploader from '../components/command-center/DatasetUploader';
 import ProcessingPipeline from '../components/command-center/ProcessingPipeline';
 
@@ -22,6 +20,7 @@ const VehicleDashboard: React.FC = () => {
   const [history, setHistory] = useState<InferenceRunHistory[]>([]);
   const [historyLoading, setHistoryLoading] = useState(false);
   const [currentTelemetry, setCurrentTelemetry] = useState<TelemetryRecord | null>(null);
+  const [latestRunId, setLatestRunId] = useState<number | null>(null);
 
   if (vehicleClass !== 'TANK' && vehicleClass !== 'LOGISTIC TRUCK' && vehicleClass !== 'OFFICER VEHICLE') {
     return <ErrorState message="Invalid Vehicle Class" onRetry={() => navigate('/vehicles')} />;
@@ -34,7 +33,9 @@ const VehicleDashboard: React.FC = () => {
     setHistoryLoading(true);
     try {
       const data = await getVehicleHistory(vehicleId);
-      setHistory(data);
+      // Sort newest first
+      const sorted = [...data].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      setHistory(sorted);
     } catch (e) {
       console.error('Failed to load history', e);
     } finally {
@@ -65,7 +66,15 @@ const VehicleDashboard: React.FC = () => {
       });
       setResult(res);
       setPipelineStatus('COMPLETE');
+      // Capture the latest run ID before reloading history so we can highlight it
+      const prevIds = new Set(history.map(h => h.id));
       await loadHistory();
+      // After reload, pick the first run not in the previous list
+      setHistory(prev => {
+        const newest = prev.find(h => !prevIds.has(h.id));
+        if (newest) setLatestRunId(newest.id);
+        return prev;
+      });
     } catch (err: any) {
       setError('INFERENCE ERROR: Unable to process the telemetry dataset.');
       setPipelineStatus('ERROR');
@@ -78,29 +87,14 @@ const VehicleDashboard: React.FC = () => {
   const isUnknown = vRes && vRes.prognostics && vRes.prognostics.fusion_rul_hours === null;
 
   return (
-    <div style={{ paddingBottom: '4rem' }}>
-      <Navbar rightAction={
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <button 
-            onClick={() => navigate('/vehicles')} 
-            className="hud-border"
-            style={{ padding: '0.5rem 1.5rem', background: 'transparent', color: 'var(--text-secondary)', fontWeight: 'bold', fontSize: '0.875rem', letterSpacing: '1px' }}
-          >
-            ← SELECT VEHICLE
-          </button>
-          <Link to="/" className="hud-border" style={{ padding: '0.5rem 1.5rem', background: 'transparent', color: 'var(--accent)', fontWeight: 'bold', fontSize: '0.875rem', letterSpacing: '1px', textDecoration: 'none' }}>
-            LOGOUT
-          </Link>
-        </div>
-      } />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', paddingBottom: '4rem' }}>
       
-      <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      {/* Header */}
+      <header className="glass-panel" style={{ padding: '1.5rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '-2rem -2rem 2rem', borderRadius: 0, borderLeft: 'none', borderRight: 'none', borderTop: 'none' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <h1 className="text-xl font-bold" style={{ margin: 0, textTransform: 'uppercase', letterSpacing: '2px' }}>
               VEDA COMMAND CENTER <span className="text-secondary" style={{ margin: '0 10px' }}>|</span> {vehicleClass} <span className="text-accent">#{vehicleId}</span>
             </h1>
-            <DataSourceBadge />
           </div>
         </header>
 
@@ -130,7 +124,7 @@ const VehicleDashboard: React.FC = () => {
                 <>
                   <RULCard 
                     rulHours={vRes.prognostics?.fusion_rul_hours ?? null} 
-                    fusionMethod={isTank ? '1.00 × XGBoost' : '0.30 × LSTM + 0.70 × XGBoost'} 
+                    fusionMethod="0.30 × LSTM + 0.70 × XGBoost" 
                   />
                   <div className="glass-panel" style={{ padding: '1.5rem', borderColor: result?.fleet_status?.readiness_status === 'READY' ? 'var(--success)' : 'var(--danger)', borderLeftWidth: '4px' }}>
                     <div className="uppercase-label text-secondary">FLEET READINESS STATUS</div>
@@ -172,9 +166,16 @@ const VehicleDashboard: React.FC = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {Array.isArray(history) && history.map((run) => (
-                        <tr key={run.id} style={{ borderBottom: '1px solid var(--border)' }}>
-                          <td style={{ padding: '12px', color: 'var(--text-primary)' }}>{new Date(run.created_at).toLocaleString()}</td>
+                      {Array.isArray(history) && history.map((run, idx) => {
+                        const isLatest = run.id === latestRunId || (latestRunId === null && idx === 0 && history.length > 0 && pipelineStatus === 'COMPLETE');
+                        return (
+                        <tr key={run.id} style={{ borderBottom: '1px solid var(--border)', background: isLatest ? 'rgba(var(--accent-rgb, 59,130,246), 0.08)' : 'transparent', transition: 'background 0.3s' }}>
+                          <td style={{ padding: '12px', color: 'var(--text-primary)' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              {isLatest && <span style={{ display: 'inline-block', width: '7px', height: '7px', borderRadius: '50%', background: 'var(--accent)', boxShadow: '0 0 6px var(--accent)' }} title="Latest upload result" />}
+                              {new Date(run.created_at).toLocaleString()}
+                            </div>
+                          </td>
                           <td style={{ padding: '12px', color: 'var(--text-primary)' }}>{run.timestep_count}</td>
                           <td style={{ padding: '12px', fontWeight: 'bold', color: run.inference_result?.fusion_rul_hours === null ? 'var(--unknown)' : 'var(--text-primary)' }}>
                             {run.inference_result?.fusion_rul_hours === null ? 'UNKNOWN' : run.inference_result?.fusion_rul_hours?.toFixed(2)}
@@ -183,8 +184,8 @@ const VehicleDashboard: React.FC = () => {
                           <td style={{ padding: '12px', fontWeight: 'bold', color: run.fleet_readiness?.readiness_status === 'READY' ? 'var(--success)' : run.fleet_readiness?.readiness_status === 'UNKNOWN' ? 'var(--unknown)' : 'var(--danger)' }}>
                             {run.fleet_readiness?.readiness_status || run.status}
                           </td>
-                        </tr>
-                      ))}
+                        </tr>);
+                      })}
                     </tbody>
                   </table>
                 </div>
@@ -210,7 +211,7 @@ const VehicleDashboard: React.FC = () => {
                  </div>
                  <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px dashed var(--border)', paddingTop: '12px' }}>
                    <span className="text-secondary">RISK THRESHOLD</span>
-                   <span>{isTank ? '0.52' : '0.35'}</span>
+                   <span>{isTank ? '0.7730' : '0.3500'}</span>
                  </div>
                </div>
              ) : <div className="text-secondary" style={{ fontStyle: 'italic' }}>AWAITING DATASET UPLOAD</div>}
@@ -243,7 +244,6 @@ const VehicleDashboard: React.FC = () => {
              ) : <div className="text-secondary" style={{ fontStyle: 'italic' }}>NO DATA AVAILABLE</div>}
           </div>
 
-        </div>
         </div>
       </div>
     </div>

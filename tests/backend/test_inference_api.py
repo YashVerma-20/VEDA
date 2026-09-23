@@ -71,7 +71,7 @@ def test_inference_api_tank():
     assert lstm is not None
     assert xgb is not None
     assert fusion is not None
-    expected = 0.00 * lstm + 1.00 * xgb
+    expected = 0.30 * lstm + 0.70 * xgb
     assert np.isclose(fusion, expected)
     
     assert data["fleet_status"]["readiness_status"] in ["READY", "ATTENTION", "NOT_READY"]

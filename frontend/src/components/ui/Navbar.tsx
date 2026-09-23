@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import VedaLogo from './VedaLogo';
-import ThemeToggle from './ThemeToggle';
 
 interface NavbarProps {
   children?: React.ReactNode;
@@ -25,7 +24,6 @@ const Navbar: React.FC<NavbarProps> = ({ children, rightAction, position = 'stic
       </div>
       <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
         <div className="mono-metadata hidden md:block" style={{ marginRight: '1rem' }}>SYSTEM: ONLINE</div>
-        <ThemeToggle />
         {rightAction !== undefined ? rightAction : (
           <Link to="/login" className="hud-border" style={{ padding: '0.5rem 1.5rem', background: 'transparent', color: 'var(--accent)', fontWeight: 'bold', fontSize: '0.875rem', letterSpacing: '1px', textDecoration: 'none' }}>
             ENTER SYSTEM

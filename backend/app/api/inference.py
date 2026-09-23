@@ -80,6 +80,12 @@ def run_inference(
             vehicle_class=request.vehicle_class,
             telemetry_df=df
         )
+    except ValueError as ve:
+        logger.error(f"Validation error during ML inference: {str(ve)}")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Unable to process the telemetry dataset. Feature mismatch: {str(ve)}"
+        )
     except Exception as e:
         logger.error(f"Error during ML inference: {str(e)}")
         # Note: structured error without exposing stack trace

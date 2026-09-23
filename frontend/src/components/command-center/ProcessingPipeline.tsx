@@ -55,9 +55,9 @@ const ProcessingPipeline: React.FC<ProcessingPipelineProps> = ({ status, result:
         }}
       >
         <div className="text-xs uppercase-label" style={{ marginBottom: '0.5rem' }}>{label}</div>
-        {isComplete && <div style={{ fontWeight: 'bold' }}>✓ COMPLETE</div>}
-        {isProcessing && <div style={{ fontWeight: 'bold' }}>○ PROCESSING</div>}
-        {isError && <div style={{ fontWeight: 'bold' }}>✕ ERROR</div>}
+        {isComplete && <div style={{ fontWeight: 'bold' }}>COMPLETE</div>}
+        {isProcessing && <div style={{ fontWeight: 'bold' }}>PROCESSING</div>}
+        {isError && <div style={{ fontWeight: 'bold' }}>ERROR</div>}
         {(!isComplete && !isProcessing && !isError) && <div style={{ opacity: 0.5 }}>PENDING</div>}
       </div>
     );

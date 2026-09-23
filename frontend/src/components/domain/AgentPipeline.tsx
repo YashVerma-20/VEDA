@@ -10,7 +10,7 @@ const AgentPipeline: React.FC<AgentPipelineProps> = ({ orchestrationResult }) =>
     { id: 'monitoring', label: 'MONITORING' },
     { id: 'diagnostics', label: 'DIAGNOSTICS' },
     { id: 'prognostics', label: 'PROGNOSTICS' },
-    { id: 'maintenance_planning', label: 'MAINTENANCE' },
+    { id: 'maintenance_plan', label: 'MAINTENANCE' },
     { id: 'spare_parts', label: 'SPARE PARTS' },
     { id: 'fleet_readiness', label: 'FLEET READINESS' }
   ];
@@ -22,8 +22,14 @@ const AgentPipeline: React.FC<AgentPipelineProps> = ({ orchestrationResult }) =>
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       {agents.map((agent, index) => {
-        const result = results[agent.id];
-        const status = result?.status || 'UNKNOWN';
+        const result: any = agent.id === 'fleet_readiness' ? orchestrationResult.fleet_status : results[agent.id];
+        
+        let status = 'UNKNOWN';
+        if (result) {
+          if (agent.id === 'spare_parts') status = result.availability_status || 'UNKNOWN';
+          else if (agent.id === 'fleet_readiness') status = result.readiness_status || 'UNKNOWN';
+          else status = result.status || 'UNKNOWN';
+        }
         
         let colorVar = 'var(--text-secondary)';
         let borderColor = 'var(--border)';
@@ -74,7 +80,7 @@ const AgentPipeline: React.FC<AgentPipelineProps> = ({ orchestrationResult }) =>
                   agent.id === 'monitoring' ? `Severity Score: ${result.severity_score?.toFixed(4) || 'N/A'}` :
                   agent.id === 'diagnostics' ? `${result.active_fault_codes?.length ? 'FAULTS DETECTED' : 'CLEAR'}` :
                   agent.id === 'prognostics' ? `RUL CALCULATED` :
-                  agent.id === 'maintenance_planning' ? `${result.recommended_action || 'NO ACTION'}` :
+                  agent.id === 'maintenance_plan' ? `${result.recommended_action || 'NO ACTION'}` :
                   agent.id === 'spare_parts' ? `${result.inventory_status === 'NOT_AVAILABLE' ? 'NOT AVAILABLE' : result.inventory_status || 'UNKNOWN'}` :
                   agent.id === 'fleet_readiness' ? `${result.readiness_status || 'UNKNOWN'}` :
                   'No data available'}

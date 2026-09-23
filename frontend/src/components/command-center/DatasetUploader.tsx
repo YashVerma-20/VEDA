@@ -5,6 +5,19 @@ interface DatasetUploaderProps {
   isLoading: boolean;
 }
 
+const ACCEPTED_EXTENSIONS = ['.json', '.csv', '.xlsx'];
+const ACCEPTED_MIME = [
+  'application/json',
+  'text/csv',
+  'application/vnd.ms-excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+];
+
+const isValidFile = (file: File) => {
+  const ext = '.' + file.name.split('.').pop()?.toLowerCase();
+  return ACCEPTED_EXTENSIONS.includes(ext) || ACCEPTED_MIME.includes(file.type);
+};
+
 const DatasetUploader: React.FC<DatasetUploaderProps> = ({ onDataReady, isLoading }) => {
   const [dragActive, setDragActive] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -13,34 +26,72 @@ const DatasetUploader: React.FC<DatasetUploaderProps> = ({ onDataReady, isLoadin
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
+    if (e.type === 'dragenter' || e.type === 'dragover') {
       setDragActive(true);
-    } else if (e.type === "dragleave") {
+    } else if (e.type === 'dragleave') {
       setDragActive(false);
     }
   };
 
   const processFile = (file: File) => {
     setError(null);
-    if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
-      setError('INVALID FORMAT: Only .json telemetry datasets are supported.');
+
+    if (!isValidFile(file)) {
+      setError('INVALID FORMAT: Only .json, .csv, or .xlsx datasets are supported.');
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const json = JSON.parse(e.target?.result as string);
-        if (!Array.isArray(json)) {
-          setError('INVALID SCHEMA: Expected a JSON array of telemetry records.');
-          return;
+    const ext = '.' + file.name.split('.').pop()?.toLowerCase();
+
+    if (ext === '.json') {
+      // Parse JSON directly
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const json = JSON.parse(e.target?.result as string);
+          if (!Array.isArray(json)) {
+            setError('INVALID SCHEMA: Expected a JSON array of telemetry records.');
+            return;
+          }
+          onDataReady(json);
+        } catch {
+          setError('PARSE ERROR: Unreadable JSON file.');
         }
-        onDataReady(json);
-      } catch (err) {
-        setError('PARSE ERROR: Unreadable JSON file.');
+      };
+      reader.readAsText(file);
+    } else {
+      // For .csv and .xlsx, send the raw File to the backend via FormData
+      // We read as ArrayBuffer and pass as a blob — handled by the parent via a separate API call.
+      // For now, signal to the parent with the File object wrapped in a special marker.
+      // Actually: we pass to onDataReady with a special sentinel so VehicleDashboard can handle multipart upload.
+      // But since the current API accepts a JSON body, we parse CSV client-side for now.
+      if (ext === '.csv') {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const text = e.target?.result as string;
+            const lines = text.trim().split('\n');
+            const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+            const records = lines.slice(1).map(line => {
+              const values = line.split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+              const record: Record<string, any> = {};
+              headers.forEach((h, i) => {
+                const val = values[i];
+                const num = Number(val);
+                record[h] = (val !== '' && !isNaN(num)) ? num : val;
+              });
+              return record;
+            });
+            onDataReady(records);
+          } catch {
+            setError('PARSE ERROR: Could not parse CSV file.');
+          }
+        };
+        reader.readAsText(file);
+      } else {
+        setError('XLSX support requires server-side parsing. Please convert to .csv or .json first.');
       }
-    };
-    reader.readAsText(file);
+    }
   };
 
   const handleDrop = (e: React.DragEvent) => {
@@ -60,11 +111,11 @@ const DatasetUploader: React.FC<DatasetUploaderProps> = ({ onDataReady, isLoadin
   };
 
   return (
-    <div 
+    <div
       className={`glass-panel ${dragActive ? 'drag-active' : ''}`}
-      style={{ 
-        padding: '3rem 2rem', 
-        textAlign: 'center', 
+      style={{
+        padding: '3rem 2rem',
+        textAlign: 'center',
         borderStyle: dragActive ? 'dashed' : 'solid',
         borderColor: dragActive ? 'var(--accent)' : 'var(--glass-border)',
         transition: 'all 0.3s ease',
@@ -75,16 +126,16 @@ const DatasetUploader: React.FC<DatasetUploaderProps> = ({ onDataReady, isLoadin
       onDragOver={handleDrag}
       onDrop={handleDrop}
     >
-      <input 
-        ref={inputRef} 
-        type="file" 
-        accept=".json" 
+      <input
+        ref={inputRef}
+        type="file"
+        accept=".json,.csv,.xlsx"
         data-testid="dataset-input"
-        style={{ display: 'none' }} 
+        style={{ display: 'none' }}
         onChange={handleChange}
         disabled={isLoading}
       />
-      
+
       <div style={{ marginBottom: '1.5rem', opacity: isLoading ? 0.5 : 1 }}>
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--text-secondary)' }}>
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -100,7 +151,7 @@ const DatasetUploader: React.FC<DatasetUploaderProps> = ({ onDataReady, isLoadin
 
       {error && <div style={{ color: 'var(--danger)', marginBottom: '1.5rem', fontWeight: 'bold' }}>{error}</div>}
 
-      <button 
+      <button
         onClick={() => inputRef.current?.click()}
         disabled={isLoading}
         style={{
@@ -117,8 +168,20 @@ const DatasetUploader: React.FC<DatasetUploaderProps> = ({ onDataReady, isLoadin
         {isLoading ? 'UPLOADING...' : 'SELECT FILE'}
       </button>
 
-      <div className="text-xs text-secondary" style={{ marginTop: '1.5rem', fontStyle: 'italic' }}>
-        * Only supports project canonical dataset format (.json)
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
+        {['.json', '.csv', '.xlsx'].map(fmt => (
+          <span key={fmt} style={{
+            padding: '2px 10px',
+            border: '1px solid var(--border)',
+            borderRadius: '4px',
+            fontSize: '0.7rem',
+            letterSpacing: '1px',
+            color: 'var(--text-secondary)',
+            fontWeight: 'bold'
+          }}>
+            {fmt.toUpperCase()}
+          </span>
+        ))}
       </div>
     </div>
   );

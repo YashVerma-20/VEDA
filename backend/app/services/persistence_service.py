@@ -35,7 +35,7 @@ class PersistenceService:
                         raise e
             
             # Determine fusion method based on vehicle class
-            fusion_method = "1.00 × XGBoost" if vehicle_class.upper() == "TANK" else "0.30 × LSTM + 0.70 × XGBoost"
+            fusion_method = "0.30 × LSTM + 0.70 × XGBoost"
             
             # Determine overall status based on readiness or UNKNOWN handling
             status = result.fleet_status.readiness_status

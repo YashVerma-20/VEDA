@@ -48,8 +48,8 @@ def test_tank_real_inference_success(ml_service):
     assert result.xgb_rul_hours is not None
     assert result.fusion_rul_hours is not None
     
-    # Check that fusion RUL == XGB RUL since weight is 0.00 / 1.00
-    assert np.isclose(result.fusion_rul_hours, result.xgb_rul_hours)
+    # Check that fusion RUL == 0.30*LSTM + 0.70*XGB per updated user requirements
+    assert np.isclose(result.fusion_rul_hours, 0.30 * result.lstm_rul_hours + 0.70 * result.xgb_rul_hours)
 
 def test_logistic_real_inference_success(ml_service):
     np.random.seed(42)

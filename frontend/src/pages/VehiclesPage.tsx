@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import DataSourceBadge from '../components/ui/DataSourceBadge';
 
 const VehiclesPage: React.FC = () => {
   const navigate = useNavigate();
@@ -18,7 +17,6 @@ const VehiclesPage: React.FC = () => {
           <h1 className="text-2xl font-bold" style={{ margin: 0, letterSpacing: '2px' }}>VEHICLE SELECTION</h1>
           <p className="text-secondary" style={{ marginTop: '0.5rem' }}>Select a vehicle category to enter the diagnostic command center.</p>
         </div>
-        <DataSourceBadge />
       </header>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '3rem', flex: 1, alignItems: 'center', alignContent: 'center' }}>
